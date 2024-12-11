@@ -1,3 +1,4 @@
+import { response } from 'express';
 import pg from 'pg';
 const { Pool } = pg;
 
@@ -14,7 +15,7 @@ export class Entitie {
         this.del = `delete from ${this.tableName} where id=$1`
         this.findById = `select * from ${this.tableName} where id=$1`
         this.findAll = `select * from ${this.tableName}`
-        this.findByColumn = `select $1 from ${this.tableName}`
+        this.findAllByColumn = (column) => `select ${column} from ${this.tableName}`
         this.add = "insert into " + this.tableName + "(" +
             (() => Object.keys(table).join(", "))() + ") values(" +
             (() => Object.keys(table).map((unnecessary, i) => `$${i + 1}`).join(", "))() + ")"
@@ -33,6 +34,7 @@ export class DBManager {
         this.pool = new Pool(config)
         this.entitie = entitie;
     }
+    addCustom = (name, request) => this[name] = async (arg = []) => this.pool.query(request, arg)
     setEntitie = (entitie) => this.entitie = entitie
     setPool = (config) => this.pool = new Pool(config)
     createTable = () => this.pool.query(this.entitie.createTable, [])
@@ -42,6 +44,7 @@ export class DBManager {
     add = (array) => this.pool.query(this.entitie.add, array)
     find = (id) => this.pool.query(this.entitie.findById, [id])
     findAll = async () => (await this.pool.query(this.entitie.findAll, [])).rows
-    findByColumn = async (column) => (await this.pool.query(this.entitie.findByColumn, [column])).rows
+    findAllByColumn = async (column) => 
+        (await this.pool.query(this.entitie.findAllByColumn(column), [])).rows.map(it => Object.entries(it).pop()[1])
     exit = () => this.pool.end()
 }
