@@ -12,11 +12,11 @@ const db_manager = new DBManager({
     entitie: new Entitie(table.name, table.columns)
 })
 
-const addFuncFindByTimeInterval = (column) => 
-    db_manager.addCustom(`findByTimeInterval${firstLetterToCase(column)}`, 
-        `select ${column} from ${db_manager.entitie.tableName} where timestamp between $1 and $2` )
+const addFuncFindByTimeInterval = (column) =>
+    db_manager.addCustom(`findByTimeInterval${firstLetterToCase(column)}`,
+        `select ${column} from ${db_manager.entitie.tableName} where timestamp between $1 and $2`)
 
-addFuncFindByTimeInterval('*')    
+addFuncFindByTimeInterval('*')
 addFuncFindByTimeInterval('humidity')
 addFuncFindByTimeInterval('pressure')
 addFuncFindByTimeInterval('light')
@@ -33,21 +33,21 @@ app.get('/getColumnData', (req, res) => {
 })
 
 app.get('/getColumnDataByTimeInterval', (req, res) => {
-    let {c, s, e} = req.query
+    let { c, s, e } = req.query
     s += ' 00:00:00+03'
     e += ' 23:59:59+03'
-    if (c != '*') 
+    if (c != '*')
         db_manager['findByTimeInterval' + firstLetterToCase(c)]([s, e])
             .then(response => response.rows)
             .then(rows => res.json(rows.map(it => Object.entries(it).pop()[1])))
-        else db_manager['findByTimeInterval' + firstLetterToCase(c)]([s, e])
-            .then(response => response.rows)
-            .then(rows => res.json(rows))
+    else db_manager['findByTimeInterval' + firstLetterToCase(c)]([s, e])
+        .then(response => response.rows)
+        .then(rows => res.json(rows))
 })
 
 app.get('/exit', (req, res) => {
     db_manager.exit()
-    res.json({"status": "exit"})
+    res.json({ "status": "exit" })
 })
 
 app.listen(3000)

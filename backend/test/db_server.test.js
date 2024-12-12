@@ -1,4 +1,4 @@
-import {spawn} from "child_process";
+import { spawn } from "child_process";
 
 const server_config = {
     url: "http://localhost:3000",
@@ -12,14 +12,14 @@ const server_config = {
 
 describe('db_server', () => {
     let serverProcess
-    beforeAll(async () => {
+    beforeEach(async () => {
         serverProcess = spawn('node', ['../src/db_server.js']);
     });
     server_config.endpoints.forEach(endpoint => {
-        test(`testing endpoint ${endpoint}`, async () => 
+        test(`testing endpoint ${endpoint}`, async () =>
             expect((await fetch(server_config.url + endpoint)).status).toBe(200))
     })
-    afterAll(() => {
+    afterEach(() => {
         serverProcess.kill()
     })
 })
