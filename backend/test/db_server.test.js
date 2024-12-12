@@ -5,7 +5,7 @@ const server_config = {
     endpoints: [
         "/getAll",
         "/getColumnData?c=temperature",
-        "/getColumnDataByTimeInterval",
+        "/getColumnDataByTimeInterval?c=temperature&s=2024-10-01&e=2024-10-01",
         "/exit"
     ]
 }
@@ -13,13 +13,13 @@ const server_config = {
 describe('db_server', () => {
     let serverProcess
     beforeAll(async () => {
-        serverProcess = spawn('node ./src/db_server.js', { stdio: 'inherit' });
+        serverProcess = spawn('node', ['../src/db_server.js']);
     });
-    afterAll(() => {
-        serverProcess.kill()
-    })
     server_config.endpoints.forEach(endpoint => {
         test(`testing endpoint ${endpoint}`, async () => 
-            expect((await fetch(server_config.url + endpoint)).ok).toBe(true))
+            expect((await fetch(server_config.url + endpoint)).status).toBe(200))
+    })
+    afterAll(() => {
+        serverProcess.kill()
     })
 })
