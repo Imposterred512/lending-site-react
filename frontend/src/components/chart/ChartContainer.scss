@@ -1,0 +1,6 @@
+.chart-container {
+    margin-top: 7vh;
+    display: grid;
+    grid-template-columns: repeat(3, 33.33vw);
+    grid-template-rows: repeat(10, 9.3vh);
+}
