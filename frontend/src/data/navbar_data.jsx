@@ -5,25 +5,25 @@ const navbar_data = {
         zIndex: "1"
     },
     elements_arr: [
-        [
-            {
-                type: "button",
-                value: {
-                    text: "Просто Кнопка",
-                    onclick: () => { alert("Hello World") }
-                }
-            },
-            {
-                type: "text",
-                value: {
-                    text: "Teкст",
-                    style: {
-                        fontSize: "30px",
-                        margin: 0
-                    }
-                }
-            }
-        ],
+        // [
+        //     {
+        //         type: "button",
+        //         value: {
+        //             text: "Просто Кнопка",
+        //             onclick: () => { alert("Hello World") }
+        //         }
+        //     },
+        //     {
+        //         type: "text",
+        //         value: {
+        //             text: "Teкст",
+        //             style: {
+        //                 fontSize: "30px",
+        //                 margin: 0
+        //             }
+        //         }
+        //     }
+        // ],
         [
             {
                 type: "text",
@@ -38,28 +38,28 @@ const navbar_data = {
                 }
             }
         ],
-        [
-            {
-                type: "button",
-                value: {
-                    text: "Кнопка",
-                    style: {
-                        marginLeft: "auto"
-                    },
-                    onclick: () => { alert("Hello World") }
-                }
-            },
-            {
-                type: "button",
-                value: {
-                    text: "Кнопка",
-                    style: {
+        // [
+        //     {
+        //         type: "button",
+        //         value: {
+        //             text: "Кнопка",
+        //             style: {
+        //                 marginLeft: "auto"
+        //             },
+        //             onclick: () => { alert("Hello World") }
+        //         }
+        //     },
+        //     {
+        //         type: "button",
+        //         value: {
+        //             text: "Кнопка",
+        //             style: {
 
-                    },
-                    onclick: () => { alert("Hello World") }
-                }
-            },
-        ],
+        //             },
+        //             onclick: () => { alert("Hello World") }
+        //         }
+        //     },
+        // ],
     ]
 }
 

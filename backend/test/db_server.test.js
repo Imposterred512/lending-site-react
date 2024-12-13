@@ -6,7 +6,7 @@ const server_config = {
         "/getAll",
         "/getColumnData?c=temperature",
         "/getColumnDataByTimeInterval?c=temperature&s=2024-10-01&e=2024-10-01",
-        "/getEveryNthByColumn?c=temperature&n=10",
+        "/getEveryNthByColumn?c=temperature&n=20",
         "/exit"
     ]
 }
@@ -15,7 +15,7 @@ describe('db_server', () => {
     let serverProcess
     beforeEach(async () => {
         serverProcess = spawn('node', ['./src/db_server.js']);
-        await new Promise((resolve) => {setTimeout(resolve, 1000);});
+        await new Promise((resolve) => { setTimeout(resolve, 1000); });
     });
     server_config.endpoints.forEach(endpoint => {
         test(`testing endpoint ${endpoint}`, async () =>
