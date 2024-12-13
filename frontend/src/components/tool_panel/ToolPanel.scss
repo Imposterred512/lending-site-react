@@ -1,0 +1,6 @@
+.tool-panel {
+    margin-top: 7vh;
+    display: grid;
+    width: 100%;
+    grid-template-rows: repeat(15, minmax(30px, 1));
+}

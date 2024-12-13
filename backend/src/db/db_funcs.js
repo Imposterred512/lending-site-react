@@ -42,6 +42,8 @@ export class DBManager {
     delAll = () => this.pool.query(this.entitie.delAll, [])
     del = (id) => this.pool.query(this.entitie.del, [id])
     add = (array) => this.pool.query(this.entitie.add, array)
+    getCoumns = () => Object.keys(this.entitie.table)
+    getCoumnsWithOutId = () => this.getCoumns().slice(1, this.getCoumns().length)
     find = (id) => this.pool.query(this.entitie.findById, [id])
     findAll = async () => (await this.pool.query(this.entitie.findAll, [])).rows
     findAllByColumn = async (column) => 

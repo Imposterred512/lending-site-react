@@ -1,14 +1,23 @@
 import { spawn } from "child_process";
+import dotenv from 'dotenv'
+import * as fs from 'fs'
+
+dotenv.config({ path: '../frontend/.env'});
+const {VITE_SERVER_DB_URL} = process.env
+
+const extarctEndpoints = (path) => {
+    let code = fs.readFileSync(path, {encoding: 'utf-8'}).split('\n')
+    let result = code.reduce((res, line) => {
+        if(line.startsWith('app.get'))
+            res.push(line.split('app.get(\'')[1].split('\',')[0])
+        return res
+    }, [])
+    return result
+}
 
 const server_config = {
-    url: "http://localhost:3000",
-    endpoints: [
-        "/getAll",
-        "/getColumnData?c=temperature",
-        "/getColumnDataByTimeInterval?c=temperature&s=2024-10-01&e=2024-10-01",
-        "/getEveryNthByColumn?c=temperature&n=20",
-        "/exit"
-    ]
+    url: VITE_SERVER_DB_URL,
+    endpoints: extarctEndpoints('./src/db_server.js')
 }
 
 describe('db_server', () => {

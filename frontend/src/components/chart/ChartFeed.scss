@@ -1,0 +1,10 @@
+.chart-feed {
+    margin-top: 7vh;
+    display: grid;
+    width: 100%;
+    grid-template-rows: repeat(4, minmax(300px, 45vh));
+}
+
+.chart-feed-item {
+    padding: 0 10px 0 10px;
+}

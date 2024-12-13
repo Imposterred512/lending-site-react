@@ -16,8 +16,8 @@ const createOption = ({ type = "line", text = "[нет названия]", dataX
     }],
     yAxis: {
         type: 'value',
-        min: Math.min(...dataY),
-        max: Math.max(...dataY)
+        min: Math.round(Math.min(...dataY)),
+        max: Math.round(Math.max(...dataY))
     },
     series: [{
         name: '',
@@ -31,13 +31,13 @@ const createOption = ({ type = "line", text = "[нет названия]", dataX
     }]
 })
 
-const Chart = ({ id, type = "line", text = "[нет названия]", dataX = [], dataY = [], style = {}, itemStyle = {}, lineStyle={}}) => {
+const Chart = ({ id, type = "line", text = "[нет названия]", dataX = [], dataY = [], style = {}, itemStyle = {}, lineStyle={}, className=""}) => {
     if (id == undefined) throw new Error("LineChart->id is not")
     useEffect(() => {
         let chart = echarts.init(document.getElementById(id))
         chart.setOption(createOption({ type, text, dataX, dataY, itemStyle, lineStyle }))
     })
-    return <div id={id} style={style} ></div>
+    return <div id={id} style={style} className={className} ></div>
 }
 
 export default Chart
